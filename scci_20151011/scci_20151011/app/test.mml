@@ -1,0 +1,85 @@
+'コマンドメモ
+' |M1 [SoundChipName] モジュール定義
+' a～c[-,+,#][長さ]
+' r[長さ]
+' o長さ
+' p[1,2,3] L,R,C
+' @[音色番号]
+' T[テンポ]
+' v0～127
+' V0～V15
+' "[]"[長さ] ループ、長さ指定なし（無限）
+' E[AR],[DR],[SR],[RR],[SL]　SSGエンベロープ
+' P[1,2,3] 1:トーン、2:ノイズ、3:トーン＋ノイズ
+' y[アドレス],[データ] レジスタ書き込み
+' {o4c4o1c} ポルタメント {[オクターブ][開始音程][長さ][オクターブ][終了音程]}
+' (n )n 相対音量変化
+' L[TYPE][開始時間{ms}],[係数],[処理時間],[回数] TYPE 0:LFOなし 1:音程 2:音量
+' YM2608 FM:1～6CH SSG:7～9
+' YM2151 FM:1～8CH
+
+' モジュール設定
+|M1 YM2608
+'|M1 YM2151
+' 音色定義
+@1
+'    AL   FB
+      4    7
+'    AR   DR   SR   RR  SL  TL   KS   ML   DT1  DT2  AMS
+     31    0    1   15   3  35    0    3     7    0    0
+     31    5    1   15   3   0    3    1     0    0    0
+     31    0    1   15   0  26    0    3     0    0    0
+     31    5    1   15   3   0    3    1     0    0    0
+
+@2
+'    AL   FB
+      4    7
+'    AR   DR   SR   RR  SL  TL   KS   ML   DT1  DT2  AMS
+     31    0    1   15   3  38    0    2     0    0    0
+     31    5    1   15   3   0    3    1     0    0    0
+     31    0    1   15   0  26    0    3     0    0    0
+     31    5    1   15   3   0    3    1     3    0    0
+
+
+// モジュール１
+M1:1	t120@1v116l8 L1,500,7,5,3 o4a>c
+M1:2	@2v100l8r16 L1,500,7,5,3 o4a>c
+M1:3	r4
+M1:4	r16r4
+M1:5	r4
+
+M1:7	V14l8 r4 E31,15,3,15,31 P1
+M1:8	V15l8 r4 E31,15,3,15,31 P2 w0
+
+M1:1	[d2.f4e2.c<gg4.a&a2
+M1:2	[d2.f4e2.c<gg4.a&a2
+M1:3	@1v116o4[l8q8afdfafdf>c<geg>c<gecec<a>fd<afa
+M1:4	@1v100o4[l8q8afdfafdf>c<geg>c<gecec<a>fd<afa
+M1:5	@2v110[l8o2b-4.b-b-4.b-b-4.b-b-4.b-d4.dd4.d
+M1:7	[[{o3co1c}rrrrrrr]3
+M1:8	[[P2w0rrcrcrP3w31{o2co1c}r]3
+
+M1:1	r2r4o4a>cd2.f4e2.cd
+M1:2	r2r4o4a>cd2.f4e2.cd
+M1:3	da>edd<a>fdafdfafdf>c<geg>c<gec
+M1:4	da>edd<a>fdafdfafdf>c<geg>c<gec
+M1:5	d4.dd4.db-4.b-b-4.b-b-4.b-b-4.b-
+M1:7	[{o3co1c}rrrrrrr]3
+M1:8	[P2w0rrcrcrP3w31{o2co1c}r]3
+
+M1:1	e2.g4g4.f&f4<a>cd2.a4
+M1:2	e2.g4g4.f&f4<a>cd2.a4
+M1:3	>c<geg>c<gecec<a>d&d<a>fdafdfadfd
+M1:4	>c<geg>c<gecec<a>d&d<a>fdafdfadfd
+M1:5	a4.aa4.ad4.dd4>dc<b-4.b-b-4.b-
+M1:7	[{o3co1c}rrrrrrr]3
+M1:8	[P2w0rrcrcrP3w31{o2co1c}r]3
+
+M1:1	grerr4crc4.d&d2r2r4<a>c]
+M1:2	grerr4crc4.d&d2r2r4<a>c]
+M1:3	ercrr4<a>rgecfd<afadefa>defa]
+M1:4	ercrr4<a>rgecfd<afadefa>defa]
+M1:5	ararr4ard4.dd4.dd4.dd4.d]
+M1:7	[{o3co1c}rrrrrrr]1[{o3co1c}rrrrrrr]2]
+M1:8	[P2w0rrcrcrP3w31rr]1[P2w0rrcrcrP3w31{o2co1c}r]2]
+

@@ -1,0 +1,42 @@
+' モジュール設定
+|M1 YM2608
+' 音色定義
+@1
+'    AL   FB
+      4    7
+'    AR   DR   SR   RR  SL  TL   KS   ML   DT1  DT2  AMS
+     31    0    1   15   3  35    0    3     7    0    0
+     31    5    1   15   3   0    3    1     0    0    0
+     31    0    1   15   0  26    0    3     0    0    0
+     31    5    1   15   3   0    3    1     0    0    0
+
+@2
+'    AL   FB
+      4    7
+'    AR   DR   SR   RR  SL  TL   KS   ML   DT1  DT2  AMS
+     31    0    1   15   3  38    0    2     0    0    0
+     31    5    1   15   3   0    3    1     0    0    0
+     31    0    1   15   0  26    0    3     0    0    0
+     31    5    1   15   3   0    3    1     3    0    0
+
+
+// モジュール１
+M1:1	t170
+M1:10	V15R127p1l8
+M1:11	V15p3l8
+M1:12	V15p3l8
+M1:13	V15p3l8
+M1:14	V15p3l8
+M1:15	V15p3l8
+
+M1:10	[[crcrcrrr crcrcrrr]2]
+M1:11	[[rrrrrrcr rrrrrrrr]2]
+M1:12	[rrrrrrrr rrrrrrc4 rrrrrrrr rrrrrrrr]
+M1:13	[[rcrcrcrc rcrcrcrr]2]
+M1:14	[rrrrrrrr rrrrrrrr rrrrrrrr rrrrrrcc]
+M1:15	[[rrrrrrrr rrrrrrrc]2]
+
+
+
+
+
